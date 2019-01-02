@@ -1,53 +1,49 @@
 ﻿using System;
 using Android.App;
-using Android.OS;
-using Android.Runtime;
-using Android.Support.Design.Widget;
-using Android.Support.V7.App;
-using Android.Views;
+using Android.Content;
 using Android.Widget;
+using Android.OS;
+using System.Collections.Generic;
 
 namespace GroceryList
 {
-    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
-    public class MainActivity : AppCompatActivity
-    {
+	[Activity(Label = "Grocery List", MainLauncher = true, Icon = "@drawable/icon")]
+	public class MainActivity : Activity
+	{
+		public static List<Item> Items = new List<Item>();
 
-        protected override void OnCreate(Bundle savedInstanceState)
-        {
-            base.OnCreate(savedInstanceState);
-            SetContentView(Resource.Layout.activity_main);
+		protected override void OnCreate(Bundle bundle)
+		{
+			Items.Add(new Item("Milk",     2));
+			Items.Add(new Item("Crackers", 1));
+			Items.Add(new Item("Apples",   5));
 
-            Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
-            SetSupportActionBar(toolbar);
+			base.OnCreate(bundle);
+			SetContentView(Resource.Layout.Main);
 
-            FloatingActionButton fab = FindViewById<FloatingActionButton>(Resource.Id.fab);
-            fab.Click += FabOnClick;
-        }
+			FindViewById<Button>(Resource.Id.itemsButton  ).Click += OnItemsClick;
+			FindViewById<Button>(Resource.Id.addItemButton).Click += OnAddItemClick;
+			FindViewById<Button>(Resource.Id.aboutButton  ).Click += OnAboutClick;
+		}
 
-        public override bool OnCreateOptionsMenu(IMenu menu)
-        {
-            MenuInflater.Inflate(Resource.Menu.menu_main, menu);
-            return true;
-        }
+		void OnItemsClick(object sender, EventArgs e)
+		{
+			// TODO
+		}
 
-        public override bool OnOptionsItemSelected(IMenuItem item)
-        {
-            int id = item.ItemId;
-            if (id == Resource.Id.action_settings)
-            {
-                return true;
-            }
+		void OnAddItemClick(object sender, EventArgs e)
+		{
+			// TODO
+		}
 
-            return base.OnOptionsItemSelected(item);
-        }
+		void OnAboutClick(object sender, EventArgs e)
+		{
+			// TODO
+		}
 
-        private void FabOnClick(object sender, EventArgs eventArgs)
-        {
-            View view = (View) sender;
-            Snackbar.Make(view, "Replace with your own action", Snackbar.LengthLong)
-                .SetAction("Action", (Android.Views.View.IOnClickListener)null).Show();
-        }
+		protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
+		{
+			// TODO
+		}
 	}
 }
-
